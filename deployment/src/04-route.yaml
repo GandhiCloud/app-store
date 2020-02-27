@@ -6,7 +6,6 @@ metadata:
   labels:
     app: g-app-store-app
 spec:
-  # host: __ROUTE_HOSTPATH_ 
   path: /
   to:
     kind: Service

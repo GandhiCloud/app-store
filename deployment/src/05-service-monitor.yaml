@@ -3,6 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     k8s-app: g-app-store-service-monitor
+    release: prometheus-operator
   name: g-app-store-service-monitor
   namespace: openshift-monitoring
 spec:
@@ -10,6 +11,7 @@ spec:
   - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
     interval: 30s
     port: main-container
+    path: '/actuator/prometheus'
     scheme: http
     targetPort: 8080
   namespaceSelector:
@@ -18,3 +20,19 @@ spec:
   selector:
     matchLabels:
       name: g-app-store-service
+---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: my-service
+#   labels:
+#     release: prometheus-operator
+# spec:
+#   selector:
+#     matchLabels:
+#       app: my-service
+#   endpoints:
+#   - port: api
+#     path: '/actuator/prometheus'
+#     interval: 10s
+#     honorLabels: true
